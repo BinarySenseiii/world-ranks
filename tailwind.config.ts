@@ -7,7 +7,6 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
       screens: {
         '2xl': '75rem',
       },
@@ -18,6 +17,9 @@ const config = {
       },
       spacing: {
         header: '18.75rem',
+      },
+      gridTemplateColumns: {
+        home: '17.5rem 1fr',
       },
       colors: {
         theme: {
