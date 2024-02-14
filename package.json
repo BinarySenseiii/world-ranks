@@ -1,0 +1,62 @@
+{
+  "name": "world-ranks",
+  "description": "Explore WorldRanks – your ultimate source for country rankings",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Faisal Tariq <faisaltariq183@gmail.com> (@faisaltariq183)",
+  "license": "MIT",
+  "keywords": [
+    "nextjs",
+    "typescript"
+  ],
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
+    "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
+    "postinstall": "husky"
+  },
+  "lint-staged": {
+    "./src/**/*.{ts,js,jsx,tsx}": [
+      "eslint --ignore-path .gitignore --fix",
+      "prettier --ignore-path .gitignore --write"
+    ]
+  },
+  "dependencies": {
+    "@radix-ui/react-icons": "1.3.0",
+    "@radix-ui/react-slot": "1.0.2",
+    "class-variance-authority": "0.7.0",
+    "clsx": "2.1.0",
+    "next": "14.1.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwind-merge": "2.2.1",
+    "tailwindcss-animate": "1.0.7"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "18.5.0",
+    "@commitlint/config-conventional": "18.5.0",
+    "@ianvs/prettier-plugin-sort-imports": "4.1.1",
+    "@types/node": "20.11.16",
+    "@types/react": "18.2.55",
+    "@types/react-dom": "18.2.18",
+    "@typescript-eslint/eslint-plugin": "6.21.0",
+    "@typescript-eslint/parser": "6.21.0",
+    "autoprefixer": "10.4.17",
+    "eslint": "8.56.0",
+    "eslint-config-next": "14.1.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-import-resolver-typescript": "3.6.1",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-prettier": "5.1.3",
+    "husky": "9.0.10",
+    "lint-staged": "15.2.2",
+    "postcss": "8.4.35",
+    "prettier": "3.2.5",
+    "prettier-plugin-sort-json": "3.1.0",
+    "tailwindcss": "3.4.1",
+    "typescript": "5.3.3"
+  }
+}
