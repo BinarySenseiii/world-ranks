@@ -9,14 +9,24 @@ const config = {
       center: true,
       padding: '2rem',
       screens: {
-        '2xl': '1400px',
+        '2xl': '75rem',
       },
     },
     extend: {
       fontFamily: {
         vietnam: ['var(--font-vietname)'],
       },
+      spacing: {
+        header: '18.75rem',
+      },
       colors: {
+        theme: {
+          dark_1: '#1B1D1F',
+          dark_2: '#282B30',
+          dark_3: '#6C727F',
+          off_white: '#D2D5DA',
+          accent: '#4E80EE',
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

@@ -36,7 +36,7 @@
   }
 
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 210, 7%, 11%;
     --foreground: 0 0% 98%;
 
     --card: 240 10% 3.9%;
@@ -72,5 +72,11 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .page-wrapper {
+    @apply container relative z-10 md:rounded-lg md:-mt-16 md:mb-12 bg-theme-dark_1 shadow-md border border-theme-dark_2 min-h-svh;
   }
 }

@@ -5,6 +5,7 @@ import './globals.css';
 import { fontVietnam } from '@/components/ui/fonts';
 import { siteConfig } from '@/constants/config';
 import { cn } from '@/lib/utils';
+import { ThemeProvider } from '@/providers';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -46,9 +47,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={cn('min-h-screen bg-background font-vietnam antialiased', fontVietnam.variable)}>
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem storageKey="world-rank--theme">
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
