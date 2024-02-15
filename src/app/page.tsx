@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { CountryList } from '@/components/country';
 import Header from '@/components/header';
 import { SearchAside, SearchHeader } from '@/components/search';
 
@@ -12,7 +13,7 @@ const HomePage = () => {
 
         <div className="grid sm:grid-cols-home gap-4 sm:gap-6 mt-8">
           <SearchAside />
-          <div className="bg-red-500 h-full"></div>
+          <CountryList />
         </div>
       </div>
     </>
