@@ -18,10 +18,16 @@ type CountryName = {
   };
 };
 
+type Map = {
+  googleMaps: string;
+  penStreetMaps: string;
+};
+
 export type CountryData = {
   flags: FlagData;
   name: CountryName;
   region: string;
   area: number;
   population: number;
+  maps: Map;
 };

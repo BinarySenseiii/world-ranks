@@ -5,16 +5,18 @@ import Image from 'next/image';
 import { useCountries } from '@/api/hooks/useCountries';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { formatNumberWithThousandSeparator } from '@/utils';
+import { RESP_SIZES } from '@/constants/image';
+import { addEllipsis, formatNumberWithThousandSeparator } from '@/utils';
+import TableSkeleton from './skeleton/table-skeleton';
 
 const CountryList = () => {
-  const { data } = useCountries();
+  const { data, isLoading } = useCountries();
   return (
-    <Table>
+    <Table className="relative whitespace-nowrap">
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">Flag</TableHead>
-          <TableHead className="w-[200px]">Name</TableHead>
+          <TableHead className="w-24">Flag</TableHead>
+          <TableHead className="w-52">Name</TableHead>
           <TableHead>Population</TableHead>
           <TableHead>
             Area(Km<sup>2</sup>)
@@ -24,34 +26,40 @@ const CountryList = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data?.map((country, index) => (
-          <TableRow key={index}>
-            <TableCell>
-              <Image
-                alt={country.flags.alt}
-                src={country.flags.png}
-                height={40}
-                width={80}
-                className="h-10 w-16 object-cover rounded-md shadow-md"
-              />
-            </TableCell>
-            <TableCell>
-              <TooltipProvider delayDuration={400}>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <span className="line-clamp-1">{country.name.common}</span>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <span>{country.name.official}</span>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </TableCell>
-            <TableCell>{formatNumberWithThousandSeparator(country.population)}</TableCell>
-            <TableCell>{formatNumberWithThousandSeparator(country.area)}</TableCell>
-            <TableCell>{country.region}</TableCell>
-          </TableRow>
-        ))}
+        {isLoading ? (
+          <TableSkeleton />
+        ) : (
+          data?.map((country, index) => (
+            <TableRow key={index} className="text-theme-off_white">
+              <TableCell>
+                <a href={country.maps.googleMaps} target="_blank" referrerPolicy="no-referrer">
+                  <div className="w-[54px] h-10 relative">
+                    <Image
+                      alt={country.flags.alt}
+                      src={country.flags.png}
+                      className="object-cover rounded-md shadow-md"
+                      fill
+                      sizes={RESP_SIZES}
+                      priority
+                      fetchPriority="auto"
+                    />
+                  </div>
+                </a>
+              </TableCell>
+              <TableCell>
+                <TooltipProvider delayDuration={400}>
+                  <Tooltip>
+                    <TooltipTrigger>{addEllipsis(country.name.common, 20)}</TooltipTrigger>
+                    <TooltipContent>{country.name.official}</TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </TableCell>
+              <TableCell>{formatNumberWithThousandSeparator(country.population)}</TableCell>
+              <TableCell>{formatNumberWithThousandSeparator(country.area)}</TableCell>
+              <TableCell>{country.region}</TableCell>
+            </TableRow>
+          ))
+        )}
       </TableBody>
     </Table>
   );

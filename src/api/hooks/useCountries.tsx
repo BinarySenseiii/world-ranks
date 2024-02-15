@@ -7,6 +7,6 @@ import { COUNTRY_CACHE_KEY } from '../query-keys';
 export const useCountries = () => {
   return useQuery({
     queryKey: [COUNTRY_CACHE_KEY],
-    queryFn: () => getCountryData<CountryData[]>('/all?fields=name,population,flags,region,area'),
+    queryFn: () => getCountryData<CountryData[]>('/all?fields=name,population,flags,region,area,maps'),
   });
 };
