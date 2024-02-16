@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { TableCell, TableRow } from '@/components/ui/table';
 
 const TableSkeleton = () => {
-  return Array(10)
+  return Array(20)
     .fill(null)
     .map((_: unknown, index: number) => (
       <TableRow key={index} className="text-theme-off_white">

@@ -58,7 +58,7 @@ const SearchAside = () => {
         <h4 className="text-theme-dark_3 text-xs">Region</h4>
         <ToggleGroup type="single" value={region} onValueChange={onValueChangeHandle}>
           {regions.map((reg, index) => (
-            <ToggleGroupItem key={index} value={reg.toLowerCase()} className="text-sm">
+            <ToggleGroupItem key={index} value={reg.toLowerCase()} className="text-[13px] text-theme-off_white">
               {reg}
             </ToggleGroupItem>
           ))}

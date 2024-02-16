@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {
   Pagination,
   PaginationContent,
@@ -6,28 +8,62 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import { cn } from '@/lib/utils';
 
-const CountryPagination = () => {
+interface CountryPaginationProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (pageNumber: number) => void;
+}
+
+const CountryPagination: React.FC<CountryPaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
+  const renderPageNumbers = () => {
+    const pageNumbersToShow = 4;
+
+    const pages = [];
+    let startPage = Math.max(1, currentPage - Math.floor(pageNumbersToShow / 2));
+    const endPage = Math.min(totalPages, startPage + pageNumbersToShow - 1);
+
+    if (endPage - startPage < pageNumbersToShow - 1) {
+      startPage = Math.max(1, endPage - pageNumbersToShow + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(
+        <PaginationItem key={i}>
+          <PaginationLink className="cursor-pointer" isActive={currentPage === i} onClick={() => onPageChange(i)}>
+            {i}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    return pages;
+  };
+
   return (
     <Pagination>
       <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious href="#" />
+        <PaginationItem
+          className={cn('hidden md:flex', {
+            'cursor-not-allowed': currentPage === 1,
+          })}
+        >
+          <PaginationPrevious
+            onClick={() => onPageChange(currentPage - 1)}
+            className={currentPage === 1 ? 'pointer-events-none' : 'pointer-events-auto'}
+          />
         </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">1</PaginationLink>
-        </PaginationItem>
-
-        <PaginationItem>
-          <PaginationLink href="#">2</PaginationLink>
-        </PaginationItem>
-
-        <PaginationItem>
-          <PaginationLink href="#">3</PaginationLink>
-        </PaginationItem>
-
-        <PaginationItem>
-          <PaginationNext href="#" />
+        {renderPageNumbers()}
+        <PaginationItem
+          className={cn('hidden md:flex', {
+            'cursor-not-allowed': currentPage === totalPages,
+          })}
+        >
+          <PaginationNext
+            onClick={() => onPageChange(currentPage + 1)}
+            className={currentPage === totalPages ? 'pointer-events-none' : 'pointer-events-auto'}
+          />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
