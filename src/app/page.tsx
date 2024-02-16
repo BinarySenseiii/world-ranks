@@ -11,8 +11,10 @@ const HomePage = () => {
       <div className="page-wrapper">
         <SearchHeader />
 
-        <div className="grid sm:grid-cols-home gap-4 sm:gap-6 mt-8">
-          <SearchAside />
+        <div className="grid sm:grid-cols-home gap-4 sm:gap-6 mt-8 items-start">
+          <div className="sticky top-4">
+            <SearchAside />
+          </div>
           <CountryList />
         </div>
       </div>

@@ -44,16 +44,6 @@ const SearchAside = () => {
         <h4 className="text-theme-dark_3 text-xs">Status</h4>
         <div className="space-y-3">
           <div className="flex items-center space-x-2">
-            <Checkbox id="terms" />
-            <label
-              htmlFor="terms"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              Member of the United Nations
-            </label>
-          </div>
-
-          <div className="flex items-center space-x-2">
             <Checkbox id="independant" />
             <label
               htmlFor="independant"

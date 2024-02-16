@@ -30,4 +30,5 @@ export type CountryData = {
   area: number;
   population: number;
   maps: Map;
+  subregion: string;
 };
