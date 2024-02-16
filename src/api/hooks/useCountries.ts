@@ -4,10 +4,11 @@ import { CountryData } from '../_types';
 import { getCountryData } from '../config';
 import { COUNTRY_CACHE_KEY } from '../query-keys';
 
-export const useCountries = <T>(select?: ((data: CountryData[]) => any) | undefined) => {
-  return useQuery<CountryData[], Error, T>({
+export const useCountries = (select?: ((data: CountryData[]) => any) | undefined) => {
+  return useQuery<CountryData[], Error>({
     queryKey: [COUNTRY_CACHE_KEY],
-    queryFn: () => getCountryData(`/all?fields=name,population,flags,region,area,maps,subregion`),
+    queryFn: () =>
+      getCountryData<CountryData[]>(`/all?fields=name,population,flags,independent,region,area,maps,subregion`),
     ...(select ? { select } : {}),
   });
 };

@@ -3,13 +3,15 @@
 import React from 'react';
 
 import { useCountries } from '@/api/hooks/useCountries';
-import { useCountryActions, useCountryQuery } from '@/store/useCountryStore';
+import { useCountryActions, useCountryCount, useCountryQuery } from '@/store/useCountryStore';
 import { Input } from '../ui/input';
+import { Skeleton } from '../ui/skeleton';
 
 const SearchHeader = () => {
-  const { searchQuery } = useCountryQuery();
+  const { isLoading } = useCountries();
+  const { searchQuery, isFiltering } = useCountryQuery();
   const { setSearchQuery } = useCountryActions();
-  const countryCount = useCountries<number>((countries) => countries.length).data ?? 0;
+  const totalCount = useCountryCount();
 
   let timeoutId: NodeJS.Timeout;
 
@@ -25,7 +27,14 @@ const SearchHeader = () => {
 
   return (
     <div className="flex items-center justify-between flex-wrap gap-4">
-      <h2 className="text-theme-dark_3 font-semibold text-sm md:text-[15px]">Found {countryCount} countries</h2>
+      {isFiltering || isLoading ? (
+        <Skeleton className="w-40 h-6 rounded-md shadow-md" />
+      ) : (
+        <h2 className="text-theme-dark_3 font-semibold text-sm md:text-[15px]">
+          Found {totalCount} {totalCount === 1 ? 'Country' : 'Countries'}
+        </h2>
+      )}
+
       <Input
         value={searchQuery}
         onChange={onChangeHandler}

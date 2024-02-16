@@ -1,42 +1,57 @@
 'use client';
 
 import Image from 'next/image';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
-import { CountryData } from '@/api/_types';
 import { useCountries } from '@/api/hooks/useCountries';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { RESP_SIZES } from '@/constants/image';
-import { useCountryQuery } from '@/store/useCountryStore';
+import { useCountryActions, useCountryQuery } from '@/store/useCountryStore';
 import { addEllipsis, formatNumberWithThousandSeparator } from '@/utils';
-import CountryPagination from './country-pagination';
+import { filterData, sortData } from './country-helpers';
+import CountryNotFound from './country-not-found';
 import TableSkeleton from './skeleton/table-skeleton';
 
 const CountryList = () => {
-  const { isFiltering, searchQuery } = useCountryQuery();
-  const { data, isLoading } = useCountries<CountryData[]>();
+  const { isFiltering, searchQuery, region, checked, sortBy } = useCountryQuery();
+  const { setTotalCountries } = useCountryActions();
+  const { data, isLoading } = useCountries();
 
   const filteredData = useMemo(() => {
     if (!data || !data.length) {
       return [];
     }
 
-    const normalizedSearchQuery = searchQuery.toLowerCase();
+    const normalizedSearchQuery = searchQuery?.toLowerCase() ?? '';
     const search = (property: string) => property.includes(normalizedSearchQuery);
 
-    return data.filter((country) => {
-      const name = country.name.common.toLowerCase();
-      const region = country.region.toLowerCase();
-      const subRegion = country.subregion.toLowerCase();
+    let filteredCountries = data.filter((country) => filterData(country, search));
 
-      return search(name) || search(region) || search(subRegion);
-    });
-  }, [data, searchQuery]);
+    if (region !== 'all') {
+      filteredCountries = filteredCountries.filter((country) => country.region.toLowerCase().includes(region!));
+    }
+
+    if (checked !== undefined) {
+      filteredCountries = filteredCountries.filter((country) => country.independent === checked);
+    }
+
+    if (sortBy) {
+      filteredCountries = sortData(filteredCountries, sortBy);
+    }
+
+    return filteredCountries;
+  }, [checked, data, region, searchQuery, sortBy]);
+
+  useEffect(() => {
+    setTotalCountries(filteredData?.length ?? 0);
+  }, [filteredData, setTotalCountries]);
 
   return (
     <div className="space-y-4">
       <Table className="relative whitespace-nowrap">
+        {filteredData?.length === 0 && <CountryNotFound />}
+
         <TableHeader>
           <TableRow>
             <TableHead className="w-24">Flag</TableHead>
@@ -87,7 +102,7 @@ const CountryList = () => {
         </TableBody>
       </Table>
 
-      <CountryPagination />
+      {/* <CountryPagination /> */}
     </div>
   );
 };

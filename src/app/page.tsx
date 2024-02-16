@@ -12,7 +12,7 @@ const HomePage = () => {
         <SearchHeader />
 
         <div className="grid sm:grid-cols-home gap-4 sm:gap-6 mt-8 items-start">
-          <div className="sticky top-4">
+          <div className="md:sticky top-4">
             <SearchAside />
           </div>
           <CountryList />
