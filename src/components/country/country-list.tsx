@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 
 import { useCountries } from '@/api/hooks/useCountries';
@@ -19,6 +20,7 @@ const CountryList = () => {
   const { setTotalCountries, setSearchQuery } = useCountryActions();
   const { data, isLoading } = useCountries();
   const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
 
   const filteredData = useMemo(() => {
     if (!data || !data.length) {
@@ -90,7 +92,11 @@ const CountryList = () => {
             filteredData
               ?.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
               ?.map((country, index) => (
-                <TableRow key={index} className="text-theme-off_white">
+                <TableRow
+                  key={index}
+                  className="text-theme-off_white cursor-pointer"
+                  onClick={() => router.push(`/country/${country.name.common}`)}
+                >
                   <TableCell className="pl-0">
                     <a href={country.maps.googleMaps} target="_blank" referrerPolicy="no-referrer">
                       <div className="w-[54px] h-10 relative">

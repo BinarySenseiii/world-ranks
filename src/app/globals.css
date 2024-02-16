@@ -79,4 +79,8 @@
   .page-wrapper {
     @apply container py-6 md:py-9 px-4 md:px-8 relative z-10 md:rounded-lg md:-mt-16 md:mb-12 bg-theme-dark_1 shadow-md border border-theme-dark_2 min-h-svh;
   }
+
+  .info {
+    @apply px-3 py-2 bg-theme-dark_2 rounded-md flex gap-3 items-center  divide-x divide-theme-dark_1 text-theme-off_white text-sm;
+  }
 }

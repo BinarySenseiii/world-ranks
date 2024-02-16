@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 
 import './globals.css';
 
+import Header from '@/components/header';
 import { fontVietnam } from '@/components/ui/fonts';
 import { siteConfig } from '@/constants/config';
 import { cn } from '@/lib/utils';
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={cn('min-h-screen bg-background font-vietnam antialiased', fontVietnam.variable)}>
         <ReactQueryProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem storageKey="world-rank--theme">
+            <Header />
             {children}
           </ThemeProvider>
         </ReactQueryProvider>
