@@ -22,3 +22,6 @@ export const sortData = (countries: CountryData[], sortBy: string) => {
       throw new Error(`Unsupported sortBy value: ${sortBy}`);
   }
 };
+
+export const ArrayStringify = (property: { [key: string]: string } | Record<string, string> | undefined) =>
+  property && Object.values(property).toString();

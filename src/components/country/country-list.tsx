@@ -96,6 +96,8 @@ const CountryList = () => {
                   key={index}
                   className="text-theme-off_white cursor-pointer"
                   onClick={() => router.push(`/country/${country.name.common}`)}
+                  aria-label={country.name.common}
+                  role="link"
                 >
                   <TableCell className="pl-0">
                     <a href={country.maps.googleMaps} target="_blank" referrerPolicy="no-referrer">

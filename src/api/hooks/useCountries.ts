@@ -9,7 +9,7 @@ export const useCountries = (select?: ((data: CountryData[]) => any) | undefined
   return useQuery<CountryData[], Error>({
     queryKey: [COUNTRY_CACHE_KEY],
     queryFn: () =>
-      getCountryData<CountryData[]>(`/all?fields=name,population,flags,independent,region,area,maps,subregion`),
+      getCountryData<CountryData[]>(`/all?fields=name,population,flags,independent,region,area,maps,subregion,cca3`),
     ...(select ? { select } : {}),
   });
 };

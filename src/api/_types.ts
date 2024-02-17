@@ -30,6 +30,13 @@ export type CountryData = {
   area: number;
   population: number;
   maps: Map;
+  cca3: string;
   subregion: string;
   independent: boolean;
+  capital: string[];
+  languages: { [key: string]: string } | Record<string, string>;
+  currencies: { [key: string]: { name: string; symbol: string } };
+  continents: string[];
+  borders: string[];
+  unMember: boolean;
 };
