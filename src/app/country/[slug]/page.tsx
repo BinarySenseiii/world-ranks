@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 
 import { getCountry } from '@/api/hooks/useCountries';
@@ -5,6 +6,10 @@ import CountriesNeigbours from '@/components/country/countries-neighbours';
 import { ArrayStringify } from '@/components/country/country-helpers';
 import { RESP_SIZES } from '@/constants/image';
 import { formatNumberWithThousandSeparator } from '@/utils';
+
+type PageProps = {
+  params: { slug: string };
+};
 
 export const dynamic = 'force-dynamic';
 
@@ -19,7 +24,16 @@ const CountryInfo = ({ label, value, className }: { label: string; value?: strin
   );
 };
 
-const CountryDetailPage = async ({ params }: { params: { slug: string } }) => {
+export async function generateMetadata({ params: { slug } }: PageProps): Promise<Metadata> {
+  const country = (await getCountry(slug)).at(0);
+
+  return {
+    title: country?.name.common,
+    description: country?.flags.alt,
+  };
+}
+
+const CountryDetailPage = async ({ params }: PageProps) => {
   const country = (await getCountry(params.slug)).at(0);
 
   return (
